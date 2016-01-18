@@ -6,10 +6,24 @@ var Survey = React.createClass({
         
     }
     , createSurveyMarkup : function() {
-        var questions = [ 'textarea', 'textarea', 'textarea' ];
+        var questions = [
+            {
+                type: 'Textarea',
+                text: 'What is your name?'
+            },
+            {
+                type: 'Text',
+                text: 'What is your address?'
+            },
+            {
+                type: 'Textarea',
+                text: 'What is your sign?'
+            },
+        ];
         var markup = [];
         for ( var i = 0; i < questions.length; i++ ) {
-            markup.push( <Question.Textarea  key={i} /> );
+            var question = questions[i];
+            markup.push( <Question.Question  key={i}  question={question} /> );
         }
         return markup;
     }
