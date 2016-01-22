@@ -3,9 +3,10 @@ var Question = require( './Questions' );
 
 var Survey = React.createClass({
     init: function() {
-        
+
     }
-    , createSurveyMarkup : function() {
+    /** DATA **/
+    , getQuestions : function() {
         var questions = [
             {
                 type: 'Textarea',
@@ -20,17 +21,41 @@ var Survey = React.createClass({
                 text: 'What is your sign?'
             },
         ];
-        var markup = [];
+        return questions;
+    }
+    /** EVENTS **/
+    , handleSubmit : function() {
+        for ( var i = 0; i < this.markup.length; i++ ) {
+            var q = this.refs['question' + i ];
+            console.log( q.getValue() );
+        }
+    }
+    /** RENDERS **/
+    , createSurveyMarkup : function() {
+        // grab questions
+        questions = this.getQuestions();
+
+        // create markup
+        this.markup = [];
         for ( var i = 0; i < questions.length; i++ ) {
             var question = questions[i];
-            markup.push( <Question.Question  key={i}  question={question} /> );
+            this.markup.push(
+                <Question.Question
+                key={i}
+                question={question}
+                ref={"question" + i}
+                /> );
         }
-        return markup;
+        return this.markup;
+    }
+    , createSubmitButton : function() {
+        return <input type="submit" className="submit" onClick={this.handleSubmit}/>;
     }
     , render: function() {
         return (
             <div className="survey">
                 {this.createSurveyMarkup()}
+                {this.createSubmitButton()}
             </div>
         );
     }
