@@ -25,10 +25,14 @@ var Survey = React.createClass({
     }
     /** EVENTS **/
     , handleSubmit : function() {
+        var request = {};
         for ( var i = 0; i < this.markup.length; i++ ) {
             var q = this.refs['question' + i ];
-            console.log( q.getValue() );
+            request['question' + i] = {};
+            request['question' + i].question = q.getQuestionText();
+            request['question' + i].answer   = q.getValue();
         }
+        console.log( request );
     }
     /** RENDERS **/
     , createSurveyMarkup : function() {

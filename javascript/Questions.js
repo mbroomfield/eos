@@ -34,6 +34,9 @@ var Question = React.createClass({
             break;
         }
     }
+    , getQuestionText : function() {
+        return this.props.question.text;
+    }
     , getValue : function() {
         return this.refs.q.getValue();
     }
