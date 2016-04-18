@@ -2,15 +2,25 @@ var Firebase = require('firebase');
 
 var Database = (function() {
 
-    var _db;
-
-    function initDb() {
-        _db = new Firebase('https://brilliant-inferno-2015.firebaseio.com');
-        console.log( _db );
-    }
+    var _db = new Firebase('https://brilliant-inferno-2015.firebaseio.com/eos');
+	
+	function getData( child ) {
+		var db = _db;
+		if ( child )
+			db = db.child( child );
+		return db.once( 'value' );
+	}
+	
+	function setData( child, data ) {
+		var db = _db;
+		if ( child )
+			db = db.child( child );
+		return db.update( data );
+	}
 
     return {
-        init : initDb
+		getData   : getData
+		, setData : setData
     }
 
 })();
